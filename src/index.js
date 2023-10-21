@@ -3,34 +3,45 @@ import inquirer from 'inquirer';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { config } from './config.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { copyFiles } from './utils/helper.js';
+import { printLogo } from './utils/log.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const questions = [
   {
     type: 'input',
     name: 'name',
-    message: "What's the app name?",
+    message: "Let's App-ly Some Creativity: Name your app!",
     default: 'express-app',
   },
 ];
+
+printLogo();
 
 try {
   const answers = await inquirer.prompt(questions);
   const { name } = answers;
 
-  // if (existsSync(name)) {
-  //   throw new Error('Folder already exists, try another name');
-  // }
+  if (existsSync(name)) {
+    throw new Error('Folder already exists, try another name');
+  }
 
-  const srcFileDir = path.resolve('src');
-
-  const config = readFileSync(path.resolve(srcFileDir, 'config.json'));
-  const { dependencies, devDependencies, packageJsonScripts } =
-    JSON.parse(config);
+  const filesDir = path.resolve(__dirname, 'files');
+  console.log(filesDir);
 
   mkdirSync(name, { recursive: true });
 
   process.chdir(path.resolve(name));
   execSync('npm init -y');
+
+  const CURR_DIR = process.cwd();
+  copyFiles(filesDir, CURR_DIR);
+
+  const { dependencies, devDependencies, packageJsonScripts } = config;
 
   const packageJson = JSON.parse(readFileSync('package.json'));
   packageJson.main = 'src/index.ts';
@@ -45,7 +56,9 @@ try {
     stdio: 'inherit',
   });
 
-  console.log('🏁 Done!');
+  console.log('🏁 Done!\n');
+
+  console.log(`cd ${name} && npm run dev`);
 } catch (error) {
   console.log(error.message);
   process.exit(1);
