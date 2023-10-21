@@ -1,0 +1,19 @@
+{
+  "name": "jinke",
+  "version": "1.0.0",
+  "description": "cli tool for bootstraping an express app",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "bin": {
+    "cook-express-app": "src/index.js"
+  },
+  "author": "sharan-cj",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.11"
+  }
+}
