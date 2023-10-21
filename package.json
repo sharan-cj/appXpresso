@@ -8,6 +8,10 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sharan-cj/appXpresso.git"
+  },
   "bin": "src/index.js",
   "author": "sharan-cj",
   "license": "ISC",
