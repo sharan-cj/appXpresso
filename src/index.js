@@ -7,7 +7,12 @@ import { config } from './config.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { copyFiles } from './utils/helper.js';
-import { printLogo } from './utils/log.js';
+import {
+  printCommandText,
+  printError,
+  printLogo,
+  printSuccess,
+} from './utils/log.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -30,14 +35,12 @@ try {
     throw new Error('Folder already exists, try another name');
   }
 
-  const filesDir = path.resolve(__dirname, 'files');
-  console.log(filesDir);
-
   mkdirSync(name, { recursive: true });
 
   process.chdir(path.resolve(name));
   execSync('npm init -y');
 
+  const filesDir = path.resolve(__dirname, 'files');
   const CURR_DIR = process.cwd();
   copyFiles(filesDir, CURR_DIR);
 
@@ -48,18 +51,25 @@ try {
   packageJson.scripts = packageJsonScripts;
   writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
 
+  console.time('⏱️  dependencies installed in');
+  console.log('\n🏗️  installing dependencies...');
   execSync(`npm i ${dependencies.join(' ')}`, {
     stdio: 'inherit',
   });
+  console.timeEnd('⏱️  dependencies installed in');
 
+  console.time('⏱️  dev-dependencies installed in');
+  console.log('\n🔩 installing dev-dependencies...');
   execSync(`npm i -D ${devDependencies.join(' ')}`, {
     stdio: 'inherit',
   });
+  console.timeEnd('⏱️  dev-dependencies installed in');
 
-  console.log('🏁 Done!\n');
+  printSuccess(`🚀 ${name} created successfully`);
 
-  console.log(`cd ${name} && npm run dev`);
+  console.log('run the below command to start the server:');
+  printCommandText(` cd ${name} && npm run dev `);
 } catch (error) {
-  console.log(error.message);
+  printError(error.message);
   process.exit(1);
 }
