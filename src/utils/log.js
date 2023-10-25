@@ -6,6 +6,7 @@ export const printError = (message) => {
   const error = chalk.bold.red;
   console.log('\n', error(message), '\n');
 };
+
 export const printLogo = () => {
   console.log(
     gradient(['springgreen', 'limegreen', 'green', 'forestgreen'])(
@@ -21,6 +22,6 @@ export const printSuccess = (message) => {
 };
 
 export const printCommandText = (text) => {
-  const cmd = chalk.bgBlue.black.bold.italic;
+  const cmd = chalk.bgBlue.whiteBright.italic;
   console.log('\n ', cmd(text), ' \n');
 };
