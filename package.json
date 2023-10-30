@@ -14,7 +14,7 @@
   },
   "bin": "src/index.js",
   "author": "sharan-cj",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^5.3.0",
     "figlet": "^1.6.0",
