@@ -31,8 +31,8 @@ Discover the awesome features of **Project Name**:
 - ✅ **Effective API routing**: Efficiently manage your API endpoints.
 - ✅ **Typescript enabled**: Benefit from the power of TypeScript.
 - ✅ **Prettier**: Code formatting made easy.
-- ✅ **Multiple boilerplates for different projects**: Tailor-made solutions for diverse needs.
 - ✅ **VsCode configurations**: Seamless development in your favorite IDE.
+- ⌛ **Multiple boilerplates for different projects**: Tailor-made solutions for diverse needs.
 - ⌛ **CI/CD**: Stay tuned for automated deployment.
 - ⌛ **Docker**: Containerization coming soon.
 
@@ -60,4 +60,4 @@ We welcome contributions from anyone who is interested in improving `cook-expres
 
 ## 📝 License
 
-The MIT License (MIT)
+The ISC License (ISC)
